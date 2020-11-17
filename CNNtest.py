@@ -142,9 +142,10 @@ class CNNtest:
         model.train()
         # print("shape: ", label_test.shape, prediction.shape)
         # print("TN=", TN, "TP=", TP, "FP=", FP, "FN=", FN)
-        precision = precision_score(label_test, prediction)
-        recall = recall_score(label_test, prediction)
-        f1 = f1_score(label_test, prediction)
+        lb_cpu = label_test.data.cpu().numpy()
+        precision = precision_score(lb_cpu, prediction)
+        recall = recall_score(lb_cpu, prediction)
+        f1 = f1_score(lb_cpu, prediction)
         if TN + FP > 0:
             fpr = FP / (TN + FP)
         else:

@@ -1,0 +1,5 @@
+*.c
+.idea/*
+__pycache__/*
+back/*
+data/*10w.npy
