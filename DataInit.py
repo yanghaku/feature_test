@@ -24,15 +24,15 @@ class DataManager:
         data_dim = 235
         self.norm01 = Normal01(data_dim)
 
-        # 读取label文件
-        f_label = open(label_file, "r", encoding='utf-8')
-        self.label = []
-        for row in f_label:
-            x, y = row.strip().split(',')
-            self.label.append(int(y))
-        f_label.close()
-
-        np.save("./data/" + save_label, np.array(self.label))
+        # # 读取label文件
+        # f_label = open(label_file, "r", encoding='utf-8')
+        # self.label = []
+        # for row in f_label:
+        #     x, y = row.strip().split(',')
+        #     self.label.append(int(y))
+        # f_label.close()
+        #
+        # np.save("./data/" + save_label, np.array(self.label))
 
         self.fe = FE(data_file, np.inf)
         features = []
@@ -57,13 +57,21 @@ class DataManager:
         print(data_file + " data init success")
 
 
-d1 = DataManager("D:\\Dataset\\KITSUNE\\Mirai\\test.pcap.tsv", "E:\\dataset\\kitsune\\Mirai_labels.csv", "mirai.npy",
-                 "mirai_label.npy")
+#
+# d1 = DataManager("D:\\Dataset\\KITSUNE\\Mirai\\test.pcap.tsv", "E:\\dataset\\kitsune\\Mirai_labels.csv", "mirai.npy",
+#                  "mirai_label.npy")
+#
+# d2 = DataManager("D:\\Dataset\\KITSUNE\\ARP_MitM\\test.pcap.tsv", "E:\\dataset\\kitsune\\ARP_MitM_labels.csv",
+#                  "arp.npy", "arp_label.npy")
+# d3 = DataManager("D:\\Dataset\\KITSUNE\\SSDP_Flood\\test.pcap.tsv", "E:\\dataset\\kitsune\\SSDP_Flood_labels.csv",
+#                  "ssdp_flood.npy", "ssdp_flood_label.npy")
+#
+# d4 = DataManager("D:\\Dataset\\KITSUNE\\Fuzzing\\test.pcap.tsv", "E:\\dataset\\kitsune\\Fuzzing_labels.csv",
+#                  "fuzzing.npy", "fuzzing_label.npy")
 
-d2 = DataManager("D:\\Dataset\\KITSUNE\\ARP_MitM\\test.pcap.tsv", "E:\\dataset\\kitsune\\ARP_MitM_labels.csv",
-                 "arp.npy", "arp_label.npy")
-d3 = DataManager("D:\\Dataset\\KITSUNE\\SSDP_Flood\\test.pcap.tsv", "E:\\dataset\\kitsune\\SSDP_Flood_labels.csv",
-                 "ssdp_flood.npy", "ssdp_flood_label.npy")
+d1 = DataManager("D:\\Dataset\\KITSUNE\\Mirai\\mirai_10w.tsv", "", "mirai_10w.npy", "")
 
-d4 = DataManager("D:\\Dataset\\KITSUNE\\Fuzzing\\test.pcap.tsv", "E:\\dataset\\kitsune\\Fuzzing_labels.csv",
-                 "fuzzing.npy", "fuzzing_label.npy")
+d2 = DataManager("D:\\Dataset\\KITSUNE\\ARP_MitM\\arp_10w.tsv", "", "arp_10w.npy", "")
+d3 = DataManager("D:\\Dataset\\KITSUNE\\SSDP_Flood\\ssdp_10w.tsv", "", "ssdp_10w.npy", "")
+
+d4 = DataManager("D:\\Dataset\\KITSUNE\\Fuzzing\\fuzzing_10w.tsv", "", "fuzzing_10w.npy", "")
