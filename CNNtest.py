@@ -34,12 +34,15 @@ class CNNtest:
         indices = np.random.permutation(self.train_size + self.test_size)
         self.arp_data_all = self.arp_data_all[indices]
         self.arp_label = self.arp_label[indices]
+
         indices = np.random.permutation(self.train_size + self.test_size)
         self.mirai_label = self.mirai_label[indices]
         self.mirai_data_all = self.mirai_data_all[indices]
+
         indices = np.random.permutation(self.train_size + self.test_size)
         self.ssdp_label = self.ssdp_label[indices]
         self.ssdp_data_all = self.ssdp_data_all[indices]
+
         indices = np.random.permutation(self.train_size + self.test_size)
         self.fuzzing_label = self.fuzzing_label[indices]
         self.fuzzing_data_all = self.fuzzing_data_all[indices]
@@ -78,12 +81,11 @@ class CNNtest:
         data_test = torch.from_numpy(data[self.train_size:]).to(device)
         label_test = torch.from_numpy(label[self.train_size:]).to(device)
 
+        model.train()
         for epoch in range(Epoch):
             train_indices = np.random.permutation(self.train_size)
             data_train = torch.from_numpy(data[train_indices]).to(device)
             label_train = torch.from_numpy(label[train_indices]).to(device)
-
-            model.train()
 
             for i in range(train_batchs):
                 inputs = Variable(data_train[i * batch_size:min((i + 1) * batch_size, self.train_size), :],
@@ -138,7 +140,6 @@ class CNNtest:
                     else:
                         TP += 1
 
-        model.train()
         # print("shape: ", label_test.shape, prediction.shape)
         # print("TN=", TN, "TP=", TP, "FP=", FP, "FN=", FN)
         lb_cpu = label_test.data.cpu().numpy()
@@ -171,26 +172,26 @@ class CNNtest:
         self.Recalls[bin][0] = recall
         self.FPRs[bin][0] = fpr
 
-        # arp_mitm
-        f1, precision, recall, fpr = self.train_test(self.arp_data_all[:, sub], self.arp_label)
+        # SSDP_flood
+        f1, precision, recall, fpr = self.train_test(self.ssdp_data_all[:, sub], self.ssdp_label)
         self.F1s[bin][1] = f1
         self.Precisions[bin][1] = precision
         self.Recalls[bin][1] = recall
         self.FPRs[bin][1] = fpr
 
-        # SSDP_flood
-        f1, precision, recall, fpr = self.train_test(self.ssdp_data_all[:, sub], self.ssdp_label)
-        self.F1s[bin][2] = f1
-        self.Precisions[bin][2] = precision
-        self.Recalls[bin][2] = recall
-        self.FPRs[bin][2] = fpr
-
-        # fuzzing
-        f1, precision, recall, fpr = self.train_test(self.fuzzing_data_all[:, sub], self.fuzzing_label)
-        self.F1s[bin][3] = f1
-        self.Precisions[bin][3] = precision
-        self.Recalls[bin][3] = recall
-        self.FPRs[bin][3] = fpr
+        # # arp_mitm
+        # f1, precision, recall, fpr = self.train_test(self.arp_data_all[:, sub], self.arp_label)
+        # self.F1s[bin][2] = f1
+        # self.Precisions[bin][2] = precision
+        # self.Recalls[bin][2] = recall
+        # self.FPRs[bin][2] = fpr
+        #
+        # # fuzzing
+        # f1, precision, recall, fpr = self.train_test(self.fuzzing_data_all[:, sub], self.fuzzing_label)
+        # self.F1s[bin][3] = f1
+        # self.Precisions[bin][3] = precision
+        # self.Recalls[bin][3] = recall
+        # self.FPRs[bin][3] = fpr
 
         if is_save:
             np.save("./data/F1s.npy", self.F1s)
@@ -203,7 +204,7 @@ class CNNtest:
         for i, bin in enumerate(bins):
             if np.isnan(self.F1s[bin][0]):
                 self._run(bin)
-            ans[i] = np.sum(self.F1s[bin]) / 4.0  # 取四个数据集的平均值
+            ans[i] = (self.F1s[bin][0] + self.F1s[bin][1]) / 2.0  # 取四个数据集的平均值
         return ans
 
     def bin2name(self, bin):
