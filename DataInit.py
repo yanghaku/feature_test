@@ -24,13 +24,13 @@ class DataManager:
         data_dim = 235
         self.norm01 = Normal01(data_dim)
 
-        # 读取label文件
-        f_label = open(label_file, "r", encoding='utf-8')
-        self.label = []
-        for row in f_label:
-            x, y = row.strip().split(',')
-            self.label.append(int(y))
-        f_label.close()
+        # # 读取label文件
+        # f_label = open(label_file, "r", encoding='utf-8')
+        # self.label = []
+        # for row in f_label:
+        #     x, y = row.strip().split(',')
+        #     self.label.append(int(y))
+        # f_label.close()
 
         self.fe = FE(data_file, np.inf)
         self.features = []
@@ -48,15 +48,16 @@ class DataManager:
             if x % 10000 == 0:
                 print(x)
 
-        labels = np.array(self.label[L:R])
-        data = np.array(self.features[L:R])
+        # labels = np.array(self.label[L:R])
+        #data = np.array(self.features[L:R])
+        data = np.array(self.features)
 
-        # 打乱
-        indices = np.random.permutation(data.shape[0])
-        labels = labels[indices]
-        data = data[indices]
-        print("num: ", labels.shape[0], data.shape[0])
-        np.save(save_label, labels)
+        # # 打乱
+        # indices = np.random.permutation(data.shape[0])
+        # labels = labels[indices]
+        # data = data[indices]
+        # print("num: ", labels.shape[0], data.shape[0])
+        # np.save(save_label, labels)
         np.save(save_data, data)
 
         print(data_file + " data init success")
@@ -70,5 +71,8 @@ class DataManager:
 # d3 = DataManager("D:\\Dataset\\KITSUNE\\SSDP_Flood\\test.pcap.tsv", "E:\\dataset\\kitsune\\SSDP_Flood_labels.csv",
 #                  "./data/ssdp_10w.npy", "./data/ssdp_label_10w.npy", 2560000, 2660000)
 # #
-d4 = DataManager("D:\\Dataset\\KITSUNE\\Fuzzing\\test.pcap.tsv", "E:\\dataset\\kitsune\\Fuzzing_labels.csv",
-                 "./data/fuzzing_10w.npy", "./data/fuzzing_label_10w.npy", 1250000, 1350000)
+# d4 = DataManager("D:\\Dataset\\KITSUNE\\Fuzzing\\test.pcap.tsv", "E:\\dataset\\kitsune\\Fuzzing_labels.csv",
+#                  "./data/fuzzing_10w.npy", "./data/fuzzing_label_10w.npy", 1250000, 1350000)
+
+d = DataManager("D:\\Dataset\\mawilab20180401\\201806031400.pcap\\mawilab_20_30w.pcap.tsv",
+                "", "./data/mawilab_10w.npy", "",0,100000)

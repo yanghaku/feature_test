@@ -1,5 +1,6 @@
 import numpy as np
-from CNNtest import CNNtest
+# from CNNtest import CNNtest
+from CNN_mawilab import CNN_mawilab
 
 
 class GA:  # 遗传算法选择特征
@@ -10,7 +11,7 @@ class GA:  # 遗传算法选择特征
         self.mutation_rate = mutation_rate
         self.n_generations = n_generations
         self.pop = np.random.randint(0, 2 ** DNA_size, pop_size).astype(np.int32)
-        self.cnn_test = CNNtest()
+        self.cnn_test = CNN_mawilab()
 
     def cross_over(self, parent1, pop):  # 交叉
         if np.random.rand() < self.cross_rate:
@@ -48,6 +49,7 @@ class GA:  # 遗传算法选择特征
 
             print("generation=", _ + 1, "  f1=", np.max(Values), "  feature=",
                   self.cnn_test.bin2name(self.pop[np.argmax(Values)]),
+                  "feature binary is: ", self.pop[np.argmax(Values)],
                   "fitness=", np.sum(fitness) / fitness.shape[0])
 
             # 选择
@@ -66,6 +68,6 @@ n_generations = 20  # 迭代次数, 后代数量
 pop_size = 40  # 种群个数
 
 g = GA(DNA_size, pop_size, cross_rate, mutation_rate, n_generations)
+g.cnn_test._run(63, False)
+print(g.cnn_test.F1s[63])
 g.run()
-
-
