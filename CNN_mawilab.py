@@ -24,9 +24,9 @@ class CNN_mawilab:
         self.train_size = 90000
         self.test_size = 10000
         # 打乱
-        indices = np.random.permutation(self.train_size + self.test_size)
-        self.mawilab_data_all = self.mawilab_data_all[indices]
-        self.mawilab_label = self.mawilab_label[indices]
+        # indices = np.random.permutation(self.train_size + self.test_size)
+        # self.mawilab_data_all = self.mawilab_data_all[indices]
+        # self.mawilab_label = self.mawilab_label[indices]
 
         self.slides = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
                        [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29],
