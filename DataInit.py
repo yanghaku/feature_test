@@ -49,7 +49,7 @@ class DataManager:
                 print(x)
 
         # labels = np.array(self.label[L:R])
-        #data = np.array(self.features[L:R])
+        # data = np.array(self.features[L:R])
         data = np.array(self.features)
 
         # # 打乱
@@ -74,5 +74,8 @@ class DataManager:
 # d4 = DataManager("D:\\Dataset\\KITSUNE\\Fuzzing\\test.pcap.tsv", "E:\\dataset\\kitsune\\Fuzzing_labels.csv",
 #                  "./data/fuzzing_10w.npy", "./data/fuzzing_label_10w.npy", 1250000, 1350000)
 
-d = DataManager("D:\\Dataset\\mawilab20180401\\201806031400.pcap\\mawilab_20_30w.pcap.tsv",
-                "", "./data/mawilab_10w.npy", "",0,100000)
+# d = DataManager("D:\\Dataset\\mawilab20180401\\201806031400.pcap\\mawilab_20_30w.pcap.tsv",
+#                 "", "./data/mawilab_10w.npy", "",0,100000)
+
+d = DataManager("D:\\Dataset\\mawilab20180401\\201804011400.pcap\\20180401_20_30w.pcap.tsv",
+                "", "./data/mawilab_0401_10w.npy", "", 0, 100000)

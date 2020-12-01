@@ -13,8 +13,8 @@ print("device is: ", device)
 
 class CNN_mawilab:
     def __init__(self):
-        self.mawilab_data_all = np.load("./data/mawilab_10w.npy")
-        self.mawilab_label = np.load("./data/mawilab_label_10w.npy").astype(np.longlong)
+        self.mawilab_data_all = np.load("./data/mawilab_0401_10w.npy")
+        self.mawilab_label = np.load("./data/20180401_label_20_30w.npy").astype(np.longlong)
 
         self.F1s = np.load("./data/F1s_mawilab.npy")
         self.Precisions = np.load("./data/Precisions_mawilab.npy")
