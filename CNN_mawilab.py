@@ -1,5 +1,6 @@
 import numpy as np
-import newCNN
+# import newCNN
+import dnn
 import torch
 from torch.autograd import Variable
 from sklearn.metrics import f1_score, precision_score, recall_score
@@ -53,7 +54,8 @@ class CNN_mawilab:
                        ]
 
     def train_test(self, data, label):
-        model = newCNN.Model(data.shape[1]).to(device)
+        # model = newCNN.Model(data.shape[1]).to(device)
+        model = dnn.Model(data.shape[1]).to(device)
         cost = torch.nn.CrossEntropyLoss()
         optimizer = torch.optim.Adam(model.parameters(), lr=0.00001, weight_decay=0.01)  # 0.00001,0.01
         # print("sz: ", self.train_size, self.test_size)
